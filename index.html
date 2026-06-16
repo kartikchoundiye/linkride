@@ -18,13 +18,13 @@
   <meta property="og:title" content="LinkRide – Ride Sharing Hub">
   <!--<meta property="og:description" content="Smart, student-built ride sharing for communities">-->
   <meta property="og:description" content="Link With Locals , Ride Smarter">
-  <meta property="og:image" content="https://kartikchoundiye.github.io/linkride/preview.png">
+  <meta property="og:image" content="https://kartikchoundiye.github.io/linkride/assets/images/preview.png">
   <meta property="og:url" content="https://kartikchoundiye.github.io/linkride/">
   <meta property="og:type" content="website">
 
   <!-- 🌟 Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png">
-  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" href="assets/images/favicon.png">
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 
 <body>
@@ -34,8 +34,11 @@
     <nav class="navbar">
       <!-- Left: Logo -->
       <div class="logo-wrapper">
-        <img src="linkride-logo.png" alt="LinkRide Logo" class="logo-img">
+        <img src="assets/images/linkride-logo.png" alt="LinkRide Logo" class="logo-img">
       </div>
+
+      <!-- Mobile Menu Toggle -->
+      <div class="menu-toggle" onclick="toggleMenu()">☰</div>
 
       <!-- Center: Navigation Items -->
       <ul class="nav-menu">
@@ -57,8 +60,9 @@
   <!-- 🎥 Home Hero Section -->
   <section id="home">
     <div class="home">
+      <div class="video-overlay"></div>
       <video autoplay muted loop class="bg-video">
-        <source src="Coastline - 3581.mp4" type="video/mp4" />
+        <source src="assets/videos/Coastline - 3581.mp4" type="video/mp4" />
       </video>
       <div class="home-content">
         <h1>Ready to Ride Smarter?</h1>
@@ -76,21 +80,21 @@
     <div class="rides-grid">
       <!-- 🔍 Find a Ride -->
       <a href="#search" class="ride-card">
-        <img src="search-icon.png" alt="Search Ride">
+        <img src="assets/images/search-icon.png" alt="Search Ride">
         <h3>Find a Ride</h3>
         <p>Find available rides offered by others nearby.</p>
       </a>
 
       <!-- 🤝 Offer a Ride -->
       <a href="#give" class="ride-card">
-        <img src="give-icon.png" alt="Give Ride">
+        <img src="assets/images/give-icon.png" alt="Give Ride">
         <h3>Offer a Ride</h3>
         <p>Offer your available seat to someone in need.</p>
       </a>
 
       <!-- 🗺️ Map Your Route -->
       <a href="#map" class="ride-card">
-        <img src="map-icon.png" alt="Map Route">
+        <img src="assets/images/map-icon.png" alt="Map Route">
         <h3>Map Your Route</h3>
         <p>Visualize your journey and suggest rides smartly.</p>
       </a>
@@ -138,37 +142,37 @@
       <!-- Left: Feedback Cards -->
       <div class="feedback-left">
         <div class="feedback-card">
-          <img src="user.png" alt="User 1">
+          <img src="assets/images/user.png" alt="User 1">
           <p>"LinkRide made my commute smoother and cheaper. Love it!"</p>
           <span>- Rohan</span>
         </div>
 
         <div class="feedback-card">
-          <img src="user.png" alt="User 2">
+          <img src="assets/images/user.png" alt="User 2">
           <p>"Now I travel with friends from my college every day!"</p>
           <span>- Karan</span>
         </div>
 
         <div class="feedback-card">
-          <img src="user.png" alt="User 3">
+          <img src="assets/images/user.png" alt="User 3">
           <p>"The map feature is a brilliant idea. Really helpful."</p>
           <span>- Ashish</span>
         </div>
 
         <div class="feedback-card">
-          <img src="user.png" alt="User 4">
+          <img src="assets/images/user.png" alt="User 4">
           <p>"The design is simple and the ride matching is smart."</p>
           <span>- Gitesh</span>
         </div>
 
         <div class="feedback-card">
-          <img src="user.png" alt="User 5">
+          <img src="assets/images/user.png" alt="User 5">
           <p>"Giving a ride has never been this easy and rewarding."</p>
           <span>- Nitin</span>
         </div>
 
         <div class="feedback-card">
-          <img src="user.png" alt="User 6">
+          <img src="assets/images/user.png" alt="User 6">
           <p>"A cool initiative — makes mobility so much smarter!"</p>
           <span>- Jayesh</span>
         </div>
@@ -203,19 +207,19 @@
 
     <div class="steps">
       <div class="steps-card">
-        <img src="add-user.png" alt="Sign Up">
+        <img src="assets/images/add-user.png" alt="Sign Up">
         <h3>1. Sign Up & Login</h3>
         <p>Create your account to unlock live routes, nearby rides, and schedules.</p>
       </div>
 
       <div class="steps-card">
-        <img src="find-offer.png" alt="Offer Ride">
+        <img src="assets/images/find-offer.png" alt="Offer Ride">
         <h3>2. Find or Offer a Ride</h3>
         <p>Search for matching routes or offer yours to help others share the journey.</p>
       </div>
 
       <div class="steps-card">
-        <img src="ride-safe.png" alt="Safe Ride">
+        <img src="assets/images/ride-safe.png" alt="Safe Ride">
         <h3>3. Ride Safely Together</h3>
         <p>Rate, review, and ride responsibly with verified community riders.</p>
       </div>
@@ -278,44 +282,7 @@
     </div>
 
     <!-- Javascript for Registration -->
-    <script>
-      // Show modal on Join click
-      document.querySelector('.join-btn').addEventListener('click', () => {
-        document.getElementById('joinModal').style.display = 'flex';
-
-        // Clear previous input values
-        document.getElementById('username').value = '';
-        document.getElementById('email').value = '';
-        document.getElementById('password').value = '';
-      });
-
-      // Close modal
-      function closeModal() {
-        document.getElementById('joinModal').style.display = 'none';
-      }
-
-      // Handle Sign Up
-      function handleSignup() {
-        const name = document.getElementById('username').value;
-        if (name) {
-          alert(`${name}, you are registered! Thank you for joining LinkRide.`);
-          closeModal();
-        } else {
-          alert("Please enter your name to sign up.");
-        }
-      }
-
-      // Handle Login
-      function handleLogin() {
-        const name = document.getElementById('username').value;
-        if (name) {
-          alert(`Welcome back, ${name}! You are now logged in.`);
-          closeModal();
-        } else {
-          alert("Please enter your name to log in.");
-        }
-      }
-    </script>
+    <script src="js/script.js"></script>
 </body>
 
 </html>
