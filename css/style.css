@@ -11,6 +11,7 @@
   box-sizing: border-box;
   font-family: 'Crimson Text', serif;
   scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent; /* Removes blue tap highlight on mobile */
 }
 
 html,
@@ -137,6 +138,8 @@ body {
 .home {
   width: 100%;
   height: calc(100vh - 85px);
+  min-height: 400px;
+  max-height: 56.25vw; /* Keeps a perfect 16:9 maximum ratio (for desktop mode on mobile) */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -974,9 +977,11 @@ footer {
     margin-left: auto;
   }
 
-  /* Reduce hero section height on mobile so it only takes top 35% */
+  /* Adjust Hero for mobile */
   .home {
     height: 35vh;
+    min-height: 250px;
+    max-height: none; /* Allow native mobile to dictate its own height */
   }
 
   /* Adjust hero text for mobile */
