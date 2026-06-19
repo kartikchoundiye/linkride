@@ -1,4 +1,5 @@
-<!-- index.html -->
+<!-- linkride/index.html -->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,6 +25,10 @@
 
   <!-- 🌟 Favicon -->
   <link rel="icon" type="image/png" href="assets/images/favicon.png">
+
+  <!-- Swiper.js CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
   <link rel="stylesheet" href="css/style.css" />
 </head>
 
@@ -37,15 +42,12 @@
         <img src="assets/images/linkride-logo.png" alt="LinkRide Logo" class="logo-img">
       </div>
 
-      <!-- Mobile Menu Toggle -->
-      <div class="menu-toggle" onclick="toggleMenu()">☰</div>
-
       <!-- Center: Navigation Items -->
       <ul class="nav-menu">
         <li><a href="#home" class="nav-link">Home</a></li>
         <li><a href="#myrides" class="nav-link">My Rides</a></li>
         <li><a href="#community" class="nav-link">Community</a></li>
-        <li><a href="#feedback" class="nav-link">Feedback</a></li>
+        <li><a href="#reviews" class="nav-link">Reviews</a></li>
         <li><a href="#help" class="nav-link">Help</a></li>
         <li><a href="#about" class="nav-link">About</a></li>
       </ul>
@@ -68,8 +70,7 @@
         <h1>Ready to Ride Smarter?</h1>
         <p>Join a growing network of students and locals sharing rides, cutting costs, and making travel social. Link
           with your city — one ride at a time.</p>
-        <a href="javascript:void(0)" class="cta-btn"
-          onclick="document.getElementById('joinModal').style.display='flex'">Join the Movement</a>
+        <a href="#join" class="cta-btn" onclick="openAuthModal(event)">Join the Movement</a>
       </div>
     </div>
   </section>
@@ -77,27 +78,33 @@
   <!-- 🚗 My Rides Section -->
   <section class="myrides" id="myrides">
     <h2 class="section-heading">My Rides</h2>
-    <div class="rides-grid">
-      <!-- 🔍 Find a Ride -->
-      <a href="#search" class="ride-card">
-        <img src="assets/images/search-icon.png" alt="Search Ride">
-        <h3>Find a Ride</h3>
-        <p>Find available rides offered by others nearby.</p>
-      </a>
 
-      <!-- 🤝 Offer a Ride -->
-      <a href="#give" class="ride-card">
-        <img src="assets/images/give-icon.png" alt="Give Ride">
-        <h3>Offer a Ride</h3>
-        <p>Offer your available seat to someone in need.</p>
-      </a>
+    <!-- Swiper Container -->
+    <div class="swiper myRidesSwiper">
+      <div class="swiper-wrapper">
+        <!-- 🔍 Find a Ride -->
+        <a href="#find_ride" class="swiper-slide ride-card">
+          <img src="assets/images/search-icon.png" alt="Find Ride">
+          <h3>Find a Ride</h3>
+          <p>Find available rides offered by others nearby.</p>
+        </a>
 
-      <!-- 🗺️ Map Your Route -->
-      <a href="#map" class="ride-card">
-        <img src="assets/images/map-icon.png" alt="Map Route">
-        <h3>Map Your Route</h3>
-        <p>Visualize your journey and suggest rides smartly.</p>
-      </a>
+        <!-- 🤝 Offer a Ride -->
+        <a href="#offer_ride" class="swiper-slide ride-card">
+          <img src="assets/images/give-icon.png" alt="Offer Ride">
+          <h3>Offer a Ride</h3>
+          <p>Offer your available seat to someone in need.</p>
+        </a>
+
+        <!-- 🗺️ Map Your Route -->
+        <a href="#map_route" class="swiper-slide ride-card">
+          <img src="assets/images/map-icon.png" alt="Map Route">
+          <h3>Map Your Route</h3>
+          <p>Visualize your journey and suggest rides smartly.</p>
+        </a>
+      </div>
+      <!-- Swiper Pagination Dots -->
+      <div class="swiper-pagination"></div>
     </div>
   </section>
 
@@ -135,56 +142,104 @@
     </div>
   </section>
 
-  <!-- 💬 Feedback Section with Cards and Form -->
-  <section class="feedback-section" id="feedback">
-    <h2 class="section-heading">Feedback</h2>
-    <div class="feedback-grid">
-      <!-- Left: Feedback Cards -->
-      <div class="feedback-left">
-        <div class="feedback-card">
-          <img src="assets/images/user.png" alt="User 1">
-          <p>"LinkRide made my commute smoother and cheaper. Love it!"</p>
-          <span>- Rohan</span>
-        </div>
+  <!-- 💬 Reviews Section with Cards and Form -->
+  <section class="reviews-section" id="reviews">
+    <h2 class="section-heading">Reviews</h2>
+    <div class="reviews-grid">
+      <div class="reviews-left">
+        <div class="reviews-container" id="reviewsContainer">
+          <!-- Review 1 -->
+          <div class="review-item">
+            <div class="reviewer-header">
+              <div class="reviewer-info-left">
+                <div class="avatar-circle" style="background-color: #4CAF50;">R</div>
+                <span class="reviewer-name">Rohan Nemane</span>
+              </div>
+            </div>
+            <div class="stars">★★★★★</div>
+            <p class="review-text">LinkRide made my commute smoother and cheaper. Love it!</p>
+          </div>
 
-        <div class="feedback-card">
-          <img src="assets/images/user.png" alt="User 2">
-          <p>"Now I travel with friends from my college every day!"</p>
-          <span>- Karan</span>
-        </div>
+          <!-- Review 2 -->
+          <div class="review-item">
+            <div class="reviewer-header">
+              <div class="reviewer-info-left">
+                <div class="avatar-circle" style="background-color: #2196F3;">K</div>
+                <span class="reviewer-name">Karan Chavan</span>
+              </div>
+            </div>
+            <div class="stars">★★★★★</div>
+            <p class="review-text">Now I travel with friends from my college every day!</p>
+          </div>
 
-        <div class="feedback-card">
-          <img src="assets/images/user.png" alt="User 3">
-          <p>"The map feature is a brilliant idea. Really helpful."</p>
-          <span>- Ashish</span>
-        </div>
+          <!-- Review 3 -->
+          <div class="review-item">
+            <div class="reviewer-header">
+              <div class="reviewer-info-left">
+                <div class="avatar-circle" style="background-color: #FF9800;">A</div>
+                <span class="reviewer-name">Ashish Ratnaparkhe</span>
+              </div>
+            </div>
+            <div class="stars">★★★★☆</div>
+            <p class="review-text">The map feature is a brilliant idea. Really helpful.</p>
+          </div>
 
-        <div class="feedback-card">
-          <img src="assets/images/user.png" alt="User 4">
-          <p>"The design is simple and the ride matching is smart."</p>
-          <span>- Gitesh</span>
-        </div>
+          <!-- Review 4 -->
+          <div class="review-item">
+            <div class="reviewer-header">
+              <div class="reviewer-info-left">
+                <div class="avatar-circle" style="background-color: #9C27B0;">G</div>
+                <span class="reviewer-name">Gitesh Jare</span>
+              </div>
+            </div>
+            <div class="stars">★★★★★</div>
+            <p class="review-text">The design is simple and the ride matching is smart.</p>
+          </div>
 
-        <div class="feedback-card">
-          <img src="assets/images/user.png" alt="User 5">
-          <p>"Giving a ride has never been this easy and rewarding."</p>
-          <span>- Nitin</span>
-        </div>
+          <!-- Review 5 -->
+          <div class="review-item">
+            <div class="reviewer-header">
+              <div class="reviewer-info-left">
+                <div class="avatar-circle" style="background-color: #E91E63;">N</div>
+                <span class="reviewer-name">Bharat Salunke</span>
+              </div>
+            </div>
+            <div class="stars">★★★★★</div>
+            <p class="review-text">Giving a ride has never been this easy and rewarding.</p>
+          </div>
 
-        <div class="feedback-card">
-          <img src="assets/images/user.png" alt="User 6">
-          <p>"A cool initiative — makes mobility so much smarter!"</p>
-          <span>- Jayesh</span>
+          <!-- Review 6 -->
+          <div class="review-item">
+            <div class="reviewer-header">
+              <div class="reviewer-info-left">
+                <div class="avatar-circle" style="background-color: #00BCD4;">J</div>
+                <span class="reviewer-name">Jayesh Dabhade</span>
+              </div>
+            </div>
+            <div class="stars">★★★★★</div>
+            <p class="review-text">A cool initiative — makes mobility so much smarter!</p>
+          </div>
         </div>
+        <button class="see-all-btn" id="seeAllReviewsBtn" onclick="toggleReviews()">See all reviews</button>
       </div>
 
-      <!-- Right: Feedback Form -->
-      <div class="feedback-right">
-        <label class="feedback-label">Leave Your Feedback</label>
-        <form onsubmit="event.preventDefault(); alert('Thank you for your feedback!'); this.reset();">
-          <input type="text" placeholder="Your Name" required>
-          <input type="email" placeholder="Email (optional)">
-          <textarea placeholder="Your Feedback" required></textarea>
+      <!-- Right: Review Form (Modern Inline) -->
+      <div class="reviews-right">
+        <label class="reviews-label">Write a Review</label>
+
+        <form onsubmit="handleReviewSubmit(event, this)">
+          <div class="star-rating" id="review-stars">
+            <span class="star" data-value="1">★</span>
+            <span class="star" data-value="2">★</span>
+            <span class="star" data-value="3">★</span>
+            <span class="star" data-value="4">★</span>
+            <span class="star" data-value="5">★</span>
+          </div>
+          <input type="hidden" id="review-rating" value="0">
+
+          <input type="text" id="review-name" placeholder="Your Name" required>
+          <input type="email" id="review-email" placeholder="Email ID" required>
+          <textarea id="review-text" placeholder="Describe your experience ..." required></textarea>
           <input type="submit" value="Submit">
         </form>
       </div>
@@ -201,7 +256,7 @@
         <li><strong>2.</strong> Use <em>“Offer a Ride”</em> if you want to offer your vehicle seat to others.</li>
         <li><strong>3.</strong> Open <em>“Map Your Route”</em> to view suggested matches or plan trips.</li>
         <li><strong>4.</strong> Use the <em>Join</em> button to create or log in to your account.</li>
-        <li><strong>5.</strong> Have thoughts or suggestions? Submit your feedback using our form.</li>
+        <li><strong>5.</strong> Have thoughts or suggestions? Submit your review using our form.</li>
       </ul>
     </div>
 
@@ -266,22 +321,35 @@
       <div class="modal-box">
         <span class="close-btn" onclick="closeModal()">×</span>
 
-        <h3>Join LinkRide</h3>
+        <h3 id="auth-title">Create an Account</h3>
 
-        <div class="modal-form">
-          <input type="text" id="username" placeholder="Enter Name" required />
-          <input type="email" id="email" placeholder="Enter Email" required />
-          <input type="password" id="password" placeholder="Enter Password" required />
+        <!-- Sign Up Form -->
+        <form class="modal-form" id="signup-form" onsubmit="handleSignup(event)">
+          <input type="text" id="signup-username" placeholder="Enter Name" required />
+          <input type="email" id="signup-email" placeholder="Enter Email" required />
+          <input type="password" id="signup-password" placeholder="Create Password" required />
 
           <div class="modal-buttons">
-            <button onclick="handleSignup()">Sign Up</button>
-            <button onclick="handleLogin()">Log In</button>
+            <button type="submit" class="auth-btn">Sign Up</button>
           </div>
-        </div>
+          <p class="auth-toggle">Already registered ? <span onclick="toggleAuthMode('login')">Log In</span></p>
+        </form>
+
+        <!-- Log In Form -->
+        <form class="modal-form" id="login-form" onsubmit="handleLogin(event)" style="display: none;">
+          <input type="email" id="login-email" placeholder="Enter Email" required />
+          <input type="password" id="login-password" placeholder="Enter Password" required />
+
+          <div class="modal-buttons">
+            <button type="submit" class="auth-btn">Log In</button>
+          </div>
+          <p class="auth-toggle">Don't have an account ? <span onclick="toggleAuthMode('signup')">Sign Up</span></p>
+        </form>
       </div>
     </div>
 
     <!-- Javascript for Registration -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="js/script.js"></script>
 </body>
 

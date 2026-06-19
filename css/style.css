@@ -1,3 +1,5 @@
+/* linkride/css/style.css */
+
 /* ---------------------------------- */
 /* 🌐 Font and Global Defaults        */
 /* ---------------------------------- */
@@ -9,6 +11,12 @@
   box-sizing: border-box;
   font-family: 'Crimson Text', serif;
   scroll-behavior: smooth;
+}
+
+html,
+body {
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 html {
@@ -125,14 +133,27 @@ body {
 /* ---------------------------------- */
 /* 🎥 Hero Section - Home            */
 /* ---------------------------------- */
+
 .home {
-  height: 45vh;
+  width: 100%;
+  height: calc(100vh - 85px);
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   position: relative;
   overflow: hidden;
+  background: #000;
+}
+
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 2;
 }
 
 .bg-video {
@@ -142,7 +163,7 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  z-index: -1;
+  z-index: 1;
 }
 
 .home-content {
@@ -168,6 +189,22 @@ body {
   line-height: 1.6;
 }
 
+.cta-btn {
+  display: inline-block;
+  background: #ff9800;
+  color: black;
+  font-weight: bold;
+  padding: 0.8rem 1.8rem;
+  border-radius: 40px;
+  text-decoration: none;
+  font-size: 1.1rem;
+  transition: 0.3s ease;
+}
+
+.cta-btn:hover {
+  background: #e68a00;
+}
+
 /* ---------------------------------- */
 /* 🚗 My Rides Section Cards          */
 /* ---------------------------------- */
@@ -177,13 +214,7 @@ body {
   text-align: center;
 }
 
-.rides-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 2rem;
-  margin-top: 2rem;
-}
+
 
 .ride-card {
   background: #f4f6f8;
@@ -262,117 +293,285 @@ body {
 }
 
 /* ---------------------------------- */
-/* 💬 Feedback Section Layout         */
+/* 💬 Reviews Section Layout          */
 /* ---------------------------------- */
-.feedback-section {
+.reviews-section {
   background: #f9f9f9;
   padding: 1rem 2rem;
 }
 
-.feedback-grid {
+.reviews-grid {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: space-between;
-  gap: 2rem;
+  gap: 3rem;
   align-items: flex-start;
 }
 
-/* Left : Cards Area */
-.feedback-left {
-  flex: 1 1 60%;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
+/* Left : Reviews Area */
+.reviews-left {
+  flex: 0 1 calc(50% - 1.5rem);
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  box-shadow: none;
 }
 
-.feedback-card {
-  background: #fff;
-  padding: 1.2rem 1.4rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+.reviews-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  position: relative;
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+/* Hide reviews after the 3rd one when not expanded to avoid partial cuts */
+.reviews-container:not(.expanded) .review-item:nth-child(n+4) {
+  display: none;
+}
+
+.reviews-container.expanded {
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.reviews-container::-webkit-scrollbar {
+  display: none;
+  /* Safari and Chrome */
+}
+
+.reviews-container::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+
+.review-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-bottom: 1.2rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.review-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.reviewer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.reviewer-info-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.reviewer-menu {
+  font-size: 1.5rem;
+  color: #888;
+  cursor: pointer;
+  padding: 0 0.5rem;
+  line-height: 1;
+  position: relative;
+}
+
+.reviewer-menu:hover {
+  color: #333;
+}
+
+.menu-dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  padding: 0.5rem 0;
+  z-index: 10;
+  min-width: 140px;
   text-align: left;
+}
+
+.menu-dropdown.show {
+  display: block;
+}
+
+.menu-item {
+  padding: 0.6rem 1.2rem;
+  font-size: 0.95rem;
+  color: #444;
+  font-weight: 500;
+  transition: background 0.2s ease;
+  white-space: nowrap;
+}
+
+.menu-item:hover {
+  background: #f4f4f4;
+  color: #009800;
+}
+
+.avatar-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.reviewer-name {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #333;
+}
+
+.stars {
+  color: #ff9800;
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.review-text {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.5;
+  margin-top: 0.3rem;
+}
+
+.see-all-btn {
+  align-self: flex-start;
+  background: none;
+  border: none;
+  color: #009800;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  margin-top: 1rem;
+  padding: 0;
+  transition: color 0.3s ease;
+}
+
+.see-all-btn:hover {
+  color: #00b359;
+  text-decoration: underline;
+}
+
+/* Right : Modern Inline Form Area */
+.reviews-right {
+  flex: 0 1 calc(50% - 1.5rem);
+  background: linear-gradient(135deg, #ffffff 0%, #f4fbf4 100%);
+  padding: 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 152, 0, 0.08);
+  border: 1px solid rgba(0, 152, 0, 0.1);
+  box-sizing: border-box;
+}
+
+.reviews-label {
+  display: block;
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 1.5rem;
+  font-weight: bold;
+  background: none;
+  padding: 0;
+}
+
+.reviews-right form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+}
+
+.reviews-right form input[type="text"],
+.reviews-right form input[type="email"],
+.reviews-right form textarea {
+  width: 100%;
+  padding: 0.5rem 0;
+  font-size: 1.05rem;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  background: transparent;
+  border-radius: 0;
+  transition: border-color 0.3s;
+}
+
+.reviews-right form input:focus,
+.reviews-right form textarea:focus {
+  outline: none;
+  border-bottom-color: #009800;
+}
+
+.star-rating {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 8px;
+  font-size: 2.2rem;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+}
+
+.star-rating .star {
+  color: #ccc;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.star-rating .star:hover {
+  transform: scale(1.1);
+}
+
+.star-rating .star.hover,
+.star-rating .star.selected {
+  color: #ff9800;
+}
+
+.reviews-right form textarea {
+  min-height: 60px;
+  max-height: 150px;
+  resize: none;
+  overflow-y: auto;
+}
+
+.reviews-right form input[type="submit"] {
+  align-self: flex-start;
+  background: transparent;
+  color: #009800;
+  border: 2px solid #009800;
+  padding: 0.6rem 2rem;
+  border-radius: 40px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
   transition: 0.3s ease;
 }
 
-.feedback-card:hover {
-  transform: translateY(-5px);
-}
-
-.feedback-card img {
-  height: 60px;
-  width: 60px;
-  border-radius: 50%;
-  margin-bottom: 0.8rem;
-}
-
-.feedback-card p {
-  font-size: 0.95rem;
-  color: #333;
-  line-height: 1.5;
-}
-
-.feedback-card span {
-  display: block;
-  margin-top: 0.5rem;
-  font-weight: 500;
-  font-style: italic;
-  color: #666;
-}
-
-/* Right : Form Area */
-.feedback-right {
-  flex: 1 1 35%;
-  background: white;
-  padding: 2rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.feedback-label {
-  display: inline-block;
-  font-size: 1.1rem;
-  background: #ff9800;
-  color: white;
-  padding: 0.4rem 1.2rem;
-  border-radius: 20px;
-  margin-bottom: 1rem;
-  font-weight: 600;
-}
-
-.feedback-right form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.feedback-right form input,
-.feedback-right form textarea {
-  padding: 0.85rem;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  font-size: 1rem;
-}
-
-.feedback-right form textarea {
-  min-height: 120px;
-  resize: vertical;
-}
-
-.feedback-right form input[type="submit"] {
+.reviews-right form input[type="submit"]:hover {
   background: #009800;
   color: white;
-  border: none;
-  cursor: pointer;
-  transition: background 0.3s ease;
 }
 
-.feedback-right form input[type="submit"]:hover {
-  background: #00b359;
-}
-
+/* ---------------------------------- */
 /* ---------------------------------- */
 /* 🔁 Help Section Layout */
 /* ---------------------------------- */
+#help {
+  padding: 5rem 2rem 3rem 2rem;
+  background-color: #ffffff;
+}
+
 .help-guide {
   max-width: 900px;
   margin: 0 auto 3rem auto;
@@ -433,9 +632,11 @@ body {
 /* ---------------------------------- */
 /* 🧭 Help Steps Cards Layout         */
 /* ---------------------------------- */
+
 .steps {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 2rem;
   margin-top: 2rem;
   max-width: 1100px;
@@ -445,6 +646,7 @@ body {
 
 /* 📦 Individual Step Card */
 .steps-card {
+  width: 280px;
   background: #f9f9f9;
   padding: 1.5rem;
   border-radius: 10px;
@@ -485,7 +687,6 @@ body {
 /* ---------------------------------- */
 #about {
   margin-top: 3rem;
-  /* Adds vertical space above About */
 }
 
 .about-content {
@@ -517,6 +718,7 @@ body {
 
 .about-item {
   flex: 1 1 250px;
+  max-width: 320px;
   background: #ffffff;
   padding: 1.5rem;
   border-radius: 8px;
@@ -570,35 +772,61 @@ footer {
 
 .modal-box {
   background: white;
-  padding: 2rem;
-  width: 320px;
-  border-radius: 10px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+  padding: 2.5rem 2rem;
+  width: 380px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
   position: relative;
   text-align: center;
 }
 
+.modal-box h3 {
+  color: #222;
+  font-size: 1.6rem;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
 .close-btn {
   position: absolute;
-  top: 10px;
-  right: 14px;
-  font-size: 24px;
-  color: #888;
+  top: 12px;
+  right: 18px;
+  font-size: 26px;
+  color: #666;
   cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+  color: #222;
 }
 
 .modal-form {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  margin-top: 1rem;
+  gap: 1.2rem;
+  margin-top: 1.5rem;
 }
 
 .modal-form input {
-  padding: 0.9rem;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+  padding: 1rem;
+  font-size: 1.05rem;
+  border: 1px solid #bbb;
+  border-radius: 8px;
+  background: #fafafa;
+  color: #222;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.modal-form input::placeholder {
+  color: #666;
+}
+
+.modal-form input:focus {
+  outline: none;
+  border-color: #009800;
+  box-shadow: 0 0 0 3px rgba(0, 152, 0, 0.15);
+  background: #fff;
 }
 
 .modal-buttons {
@@ -608,69 +836,134 @@ footer {
 }
 
 .modal-buttons button {
-  padding: 0.7rem 1.5rem;
+  padding: 0.85rem 1.5rem;
   background-color: #009800;
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: 0.3s ease;
+  font-size: 1.1rem;
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.1s ease;
 }
 
 .modal-buttons button:hover {
-  background-color: #00b359;
+  background-color: #007a00;
 }
 
-/* ---------------------------------- */
-/* 🌙 Hero Video Overlay              */
-/* ---------------------------------- */
-.video-overlay {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0, 0, 0, 0.4);
-  z-index: 0;
+.modal-buttons button:active {
+  transform: scale(0.98);
 }
 
-/* ---------------------------------- */
-/* 📱 Mobile Menu Toggle              */
-/* ---------------------------------- */
-.menu-toggle {
-  display: none;
-  font-size: 1.8rem;
+.auth-toggle {
+  margin-top: 20px;
+  font-size: 0.95rem;
+  color: #444;
+}
+
+.auth-toggle span {
+  color: #009800;
+  font-weight: 600;
   cursor: pointer;
-  color: #333;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.auth-toggle span:hover {
+  color: #007a00;
+  text-decoration: underline;
+}
+
+.auth-btn {
+  width: 100%;
+}
+
+/* ---------------------------------- */
+/* 🔔 Custom Toast Notification       */
+/* ---------------------------------- */
+#custom-toast {
+  visibility: hidden;
+  width: fit-content;
+  max-width: 90vw;
+  background-color: #009800;
+  color: #fff;
+  text-align: center;
+  border-radius: 40px;
+  padding: 10px 20px;
+  position: fixed;
+  z-index: 9999;
+  right: 20px;
+  top: 0px;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  transition: opacity 0.4s, top 0.4s;
+}
+
+#custom-toast.show {
+  visibility: visible;
+  opacity: 1;
+  top: 30px;
+}
+
+.toast-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 500;
+}
+
+.toast-tick {
+  width: 18px;
+  height: 18px;
+  color: white;
+  stroke-dasharray: 50;
+  stroke-dashoffset: 50;
+  animation: drawTick 0.5s ease-out forwards;
+}
+
+@keyframes drawTick {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ---------------------------------- */
+/* 📱 Media Queries (Responsiveness)  */
+/* ---------------------------------- */
+
+/* Scale down the navbar for tablets so it fits without horizontal scrolling (white bar) */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .navbar {
+    padding: 0.8rem 1rem;
+  }
+
+  .nav-menu {
+    gap: 0.5rem;
+    margin-left: 1rem;
+  }
+
+  .nav-link {
+    font-size: 0.95rem;
+    padding: 0.3em 0.5em;
+  }
+
+  .logo-img {
+    height: 50px;
+  }
 }
 
 @media (max-width: 768px) {
-  .menu-toggle {
-    display: block;
+  .navbar {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 0.6rem 1rem;
+    gap: 10px;
   }
 
   .nav-menu {
     display: none;
-    flex-direction: column;
-    position: absolute;
-    top: 85px;
-    left: 0;
-    width: 100%;
-    background: #ffffff;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-    padding: 1rem 0;
-    margin-left: 0;
-  }
-
-  .nav-menu.active {
-    display: flex;
-  }
-
-  .nav-menu li {
-    justify-content: center;
-    margin-bottom: 1rem;
-  }
-
-  .navbar {
-    padding: 0.6rem 1rem;
   }
 
   .logo-img {
@@ -679,6 +972,129 @@ footer {
 
   .nav-cta {
     margin-left: auto;
-    margin-right: 1rem;
+  }
+
+  /* Reduce hero section height on mobile so it only takes top 35% */
+  .home {
+    height: 35vh;
+  }
+
+  /* Adjust hero text for mobile */
+  .home-content {
+    width: 90%;
+    padding: 1rem;
+  }
+
+  .home-content h1 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .home-content p {
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.4;
+  }
+
+  .cta-btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.95rem;
+  }
+
+  /* Reviews Mobile Overrides */
+  .reviews-grid {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .reviews-left {
+    flex: 1 1 100%;
+    width: 100%;
+    padding: 0;
+  }
+
+  .reviews-right {
+    flex: 1 1 100%;
+    width: 100%;
+    padding: 1.5rem;
+  }
+
+  /* Swiper Mobile Overrides */
+  .myRidesSwiper {
+    width: 100%;
+    padding-bottom: 50px;
+    /* Increased space for pagination */
+  }
+
+  .myRidesSwiper .swiper-pagination {
+    bottom: 0px !important;
+    /* Push dots all the way to the bottom of the extra padding */
+  }
+
+  /* Swiper Pagination Styling (Pill format) */
+  .swiper-pagination-bullet {
+    width: 8px;
+    height: 8px;
+    background: #ccc;
+    opacity: 1;
+    transition: 0.3s ease;
+  }
+
+  .swiper-pagination-bullet-active {
+    background: #009800;
+    width: 24px;
+    border-radius: 4px;
+  }
+
+  /* About Section Mobile Overrides */
+  #about {
+    margin-top: 2rem;
+  }
+
+  .about-content {
+    padding: 2rem 1rem;
+  }
+
+  .about-content h3 {
+    font-size: 1.5rem;
+  }
+
+  .about-content p {
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .about-grid {
+    gap: 1.2rem;
+    flex-direction: column;
+  }
+
+  .about-item {
+    flex: 1 1 100%;
+    width: 100%;
+    max-width: none;
+    padding: 1.2rem;
+    box-sizing: border-box;
+  }
+}
+
+/* Ensure Swiper behaves like a normal flex grid on desktop when disabled */
+@media (min-width: 769px) {
+  .myRidesSwiper .swiper-wrapper {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 2rem !important;
+    margin-top: 2rem !important;
+    transform: none !important;
+  }
+
+  .myRidesSwiper .swiper-pagination {
+    display: none !important;
+  }
+
+  .myRidesSwiper .ride-card {
+    width: 250px !important;
+    margin-right: 0 !important;
   }
 }
