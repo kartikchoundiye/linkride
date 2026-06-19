@@ -297,7 +297,7 @@ function initStarRating() {
 
   stars.forEach(star => {
     // Hover effect
-    star.addEventListener('mouseover', function() {
+    star.addEventListener('mouseover', function () {
       const val = parseInt(this.getAttribute('data-value'), 10);
       stars.forEach(s => {
         if (parseInt(s.getAttribute('data-value'), 10) <= val) {
@@ -309,15 +309,15 @@ function initStarRating() {
     });
 
     // Remove hover effect when mouse leaves
-    star.addEventListener('mouseout', function() {
+    star.addEventListener('mouseout', function () {
       stars.forEach(s => s.classList.remove('hover'));
     });
 
     // Click to select
-    star.addEventListener('click', function() {
+    star.addEventListener('click', function () {
       const val = parseInt(this.getAttribute('data-value'), 10);
       ratingInput.value = val;
-      
+
       stars.forEach(s => {
         if (parseInt(s.getAttribute('data-value'), 10) <= val) {
           s.classList.add('selected');
